@@ -1,23 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import Tab from './Components/JS/Tab';
+import Page from './Components/JS/Page';
+
+import { useState } from 'react';
 
 function App() {
+
+  const [tabs,setTabs] = useState([
+    {id:1 , current:true, animal:"cat",content:"CAT"},
+    {id:2, current:false, animal:"dog",content:"DOG"},
+    //{id:3, current:false, animal:"bird",content:"BIRD"},
+  ])
+  
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+        <header>
+           {
+             tabs.map(tab=>
+                  <Tab tabs={tabs} setTabs={setTabs} key={tab.id} id={tab.id} title={tab.animal} current={tab.current}/>
+             )
+           }
+           
+        </header>
+        <div className="interface">
+           {tabs.map(tab => <Page key={tab.id} tab={tab}/>)}
+        </div>
+    </div>
     </div>
   );
 }
